@@ -38,7 +38,7 @@ section { padding-block: 40px; border-top: 1px solid var(--line); display: grid;
 h2 { font-size: clamp(26px, 4vw, 34px); }
 .text { display: grid; gap: 14px; max-width: 66ch; }
 
-.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
 .card { background: var(--surface); border-radius: 16px; padding: 22px; display: grid; gap: 12px; align-content: start; min-width: 0; }
 .card h3 { font-size: 22px; color: var(--gold-soft); }
 .card .what { color: var(--muted); font-size: 16px; }
@@ -131,20 +131,10 @@ footer { padding-block: 28px 40px; border-top: 1px solid var(--line); font-size:
           <li>город, где дело растёт сильнее всего</li>
           <li>что там раскрывается в деле и деньгах</li>
           <li>места, где рост будет тормозить</li>
+          <li>если вы уже рассматриваете какие-то города, разберём и их</li>
         </ul>
-        <span class="price">2 990 ₽</span>
+        <span class="price">3 490 ₽</span>
         <button class="btn" type="button" data-buy="karta">Оплатить</button>
-      </div>
-      <div class="card">
-        <h3>Переезжать или нет</h3>
-        <p class="what">Вы называете 2–3 города, между которыми выбираете.</p>
-        <ul>
-          <li>что даст каждый город: дело, деньги, отношения, отдых</li>
-          <li>что каждый может забрать</li>
-          <li>какой из них ваш и для какой цели</li>
-        </ul>
-        <span class="price">2 990 ₽</span>
-        <button class="btn" type="button" data-buy="vybor">Оплатить</button>
       </div>
       <div class="card">
         <h3>Где и когда вы встретите своего человека</h3>
@@ -162,7 +152,7 @@ footer { padding-block: 28px 40px; border-top: 1px solid var(--line); font-size:
     <div class="bundles">
       <div class="bundle">
         <h3>Моё место на карте + Где и когда вы встретите своего человека</h3>
-        <div class="row"><span class="price">3 990 ₽</span><s>4 480 ₽</s></div>
+        <div class="row"><span class="price">4 480 ₽</span><s>4 980 ₽</s></div>
         <p>Город для реализации и отдельно города и годы для встречи.</p>
         <button class="btn" type="button" data-buy="karta_lyubov">Оплатить комплект</button>
       </div>
@@ -173,7 +163,7 @@ footer { padding-block: 28px 40px; border-top: 1px solid var(--line); font-size:
     <span class="label">Как проходит</span>
     <h2>Три шага</h2>
     <ol class="steps">
-      <li>Выбираете разбор и заполняете короткую анкету: дата, время и город рождения, телефон, Telegram или WhatsApp.</li>
+      <li>Выбираете разбор и заполняете короткую анкету: дата, время и город рождения, города, которые вы рассматриваете, телефон, Telegram или WhatsApp.</li>
       <li>Оплачиваете разбор, анкета приходит вместе с оплатой.</li>
       <li>В течение 3 рабочих дней получаете разбор в Telegram или WhatsApp.</li>
     </ol>
@@ -208,9 +198,9 @@ footer { padding-block: 28px 40px; border-top: 1px solid var(--line); font-size:
         <div class="doc">
           <p>Индивидуальный предприниматель Устинова Евгения Андреевна (ИНН 450601673518, ОГРНИП 323450000009718), далее Исполнитель, предлагает любому дееспособному лицу, далее Заказчик, заключить договор на оказание информационно-консультационных услуг в сфере коучинга и саморазвития на условиях ниже.</p>
           <h3>1. Предмет</h3>
-          <p>Исполнитель готовит для Заказчика персональную письменную консультацию по выбору места для жизни с использованием модели архетипов: «Моё место на карте», «Переезжать или нет», «Где и когда вы встретите своего человека» или комплект.</p>
+          <p>Исполнитель готовит для Заказчика персональную письменную консультацию по выбору места для жизни с использованием модели архетипов: «Моё место на карте», «Где и когда вы встретите своего человека» или комплект.</p>
           <h3>2. Стоимость и оплата</h3>
-          <p>«Моё место на карте» 2 990 рублей, «Переезжать или нет» 2 990 рублей, «Где и когда вы встретите своего человека» 1 490 рублей, комплект «Моё место на карте» и «Где и когда вы встретите своего человека» 3 990 рублей. Оплата производится полностью через платёжный сервис на сайте. Оплата означает полное принятие условий оферты.</p>
+          <p>«Моё место на карте» 3 490 рублей, «Где и когда вы встретите своего человека» 1 490 рублей, комплект «Моё место на карте» и «Где и когда вы встретите своего человека» 4 480 рублей. Оплата производится полностью через платёжный сервис на сайте. Оплата означает полное принятие условий оферты.</p>
           <h3>3. Порядок оказания услуг</h3>
           <p>Перед оплатой Заказчик заполняет анкету на сайте: дату, время и место рождения и контакт для связи. Исполнитель направляет письменную консультацию в Telegram или WhatsApp в течение 3 рабочих дней с момента оплаты. Услуга считается оказанной в момент отправки консультации.</p>
           <h3>4. Ограничения</h3>
@@ -252,7 +242,7 @@ footer { padding-block: 28px 40px; border-top: 1px solid var(--line); font-size:
       <label>Время рождения<input name="time" required placeholder="9:30"></label>
     </div>
     <label>Город рождения<input name="city" required></label>
-    <label id="cities-wrap" hidden>Города, между которыми выбираете (2–3)<input name="cities"></label>
+    <label>Какие города или страны вы рассматриваете или куда хотели бы переехать<textarea name="cities" rows="2" placeholder="Например: Сочи, Дананг, Бали. Можно оставить пустым"></textarea></label>
     <div class="two">
       <label>Куда прислать разбор<select name="messenger"><option>Telegram</option><option>WhatsApp</option></select></label>
       <label>Ник или номер<input name="contact" required placeholder="@username"></label>
@@ -271,10 +261,9 @@ footer { padding-block: 28px 40px; border-top: 1px solid var(--line); font-size:
 var PAYFORM = "https://arhetipy.payform.ru/";
 var AFTER_PAY = "https://t.me/zhenya_ustinova";
 var PRODUCTS = {
-  karta: { name: "Моё место на карте", price: 2990 },
-  vybor: { name: "Переезжать или нет", price: 2990, cities: true },
+  karta: { name: "Моё место на карте", price: 3490 },
   lyubov: { name: "Где и когда вы встретите своего человека", price: 1490 },
-  karta_lyubov: { name: "Моё место на карте + Где и когда вы встретите своего человека", price: 3990 }
+  karta_lyubov: { name: "Моё место на карте + Где и когда вы встретите своего человека", price: 4480 }
 };
 (function () {
   var dlg = document.getElementById('order'), form = document.getElementById('order-form');
@@ -285,8 +274,6 @@ var PRODUCTS = {
       cur = b.getAttribute('data-buy');
       var p = PRODUCTS[cur];
       document.getElementById('order-sum').textContent = p.name + ', ' + rub(p.price);
-      document.getElementById('cities-wrap').hidden = !p.cities;
-      form.elements.cities.required = !!p.cities;
       note.hidden = true;
       if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
     });
@@ -305,7 +292,7 @@ var PRODUCTS = {
     if (!PAYFORM) { note.textContent = 'Оплата подключается. Напишите, пожалуйста, на 89122545000@yandex.ru.'; note.hidden = false; return; }
     var p = PRODUCTS[cur];
     var extra = 'Имя: ' + f.name.value + '; дата: ' + f.date.value + '; время: ' + f.time.value + '; город рождения: ' + f.city.value +
-      (p.cities ? '; города для выбора: ' + f.cities.value : '') + '; ' + f.messenger.value + ': ' + f.contact.value;
+      (f.cities.value.trim() ? '; рассматривает города: ' + f.cities.value.trim() : '') + '; ' + f.messenger.value + ': ' + f.contact.value;
     var q = new URLSearchParams();
     q.set('do', 'pay');
     q.set('order_id', 'karta-' + Date.now());
