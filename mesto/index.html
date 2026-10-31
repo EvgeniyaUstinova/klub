@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ваше место на карте</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prata&family=Manrope:wght@400;500;700&display=swap">
+<style>
+:root {
+  --bg: #1d1727; --surface: #2a2238; --ink: #f3ece0; --muted: #b9afc6; --line: #3b3150;
+  --gold: #d4ad55; --gold-soft: #e2bf6c; --gold-ink: #1d1727;
+  --display: "Prata", "Liberation Serif", Georgia, serif;
+  --body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+:root[data-theme="dark"] { color-scheme: dark; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme: dark; } }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.65; }
+.wrap { max-width: 900px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; line-height: 1.2; text-wrap: balance; }
+p { margin: 0; }
+a { color: var(--gold-soft); }
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+.label { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); font-weight: 700; }
+
+header.hero { padding-block: 48px 40px; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px; align-items: center; }
+.hero-text { display: grid; gap: 18px; min-width: 0; }
+h1 { font-size: clamp(34px, 6vw, 54px); }
+.lead { color: var(--muted); font-size: 18px; max-width: 48ch; }
+.btn { border: 0; font: inherit; cursor: pointer; display: inline-block; background: var(--gold); color: var(--gold-ink); text-decoration: none; font-weight: 700; padding: 13px 24px; border-radius: 999px; text-align: center; }
+.btn:hover { background: var(--gold-soft); }
+.btn.ghost { background: transparent; color: var(--gold-soft); border: 1px solid var(--gold); }
+.globe { width: 100%; max-width: 300px; justify-self: center; aspect-ratio: 1; }
+
+section { padding-block: 40px; border-top: 1px solid var(--line); display: grid; gap: 22px; }
+h2 { font-size: clamp(26px, 4vw, 34px); }
+.text { display: grid; gap: 14px; max-width: 66ch; }
+
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.card { background: var(--surface); border-radius: 16px; padding: 22px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.card h3 { font-size: 22px; color: var(--gold-soft); }
+.card .what { color: var(--muted); font-size: 16px; }
+.card ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: 15px; display: grid; gap: 4px; }
+.card .price { font-family: var(--display); font-size: 30px; color: var(--ink); font-variant-numeric: tabular-nums; margin-top: 4px; }
+.card .btn { justify-self: start; }
+
+.bundles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.bundle { border: 1px solid var(--gold); border-radius: 16px; padding: 22px; display: grid; gap: 10px; min-width: 0; }
+.bundle h3 { font-size: 21px; }
+.bundle .row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px; }
+.bundle .price { font-family: var(--display); font-size: 30px; color: var(--gold-soft); font-variant-numeric: tabular-nums; }
+.bundle s { color: var(--muted); font-size: 17px; }
+.bundle p { color: var(--muted); font-size: 15px; }
+.bundle .btn { justify-self: start; }
+
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; counter-reset: s; }
+.steps li { counter-increment: s; border-top: 2px solid var(--gold); padding-top: 12px; font-size: 16px; min-width: 0; }
+.steps li::before { content: counter(s); font-family: var(--display); font-size: 28px; color: var(--gold); display: block; line-height: 1; margin-bottom: 6px; }
+
+.facts { display: flex; flex-wrap: wrap; gap: 10px; }
+.fact { border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: 15px; }
+.fact b { color: var(--gold-soft); font-weight: 700; }
+
+.legal { display: grid; gap: 10px; }
+details { background: var(--surface); border-radius: 12px; padding: 14px 18px; }
+summary { cursor: pointer; font-weight: 700; }
+details .doc { display: grid; gap: 10px; margin-top: 12px; font-size: 15px; color: var(--muted); max-width: 70ch; }
+details .doc h3 { font-family: var(--body); font-weight: 700; font-size: 15px; color: var(--ink); }
+.req { font-size: 15px; color: var(--muted); display: grid; gap: 2px; }
+dialog { border: 1px solid var(--gold); border-radius: 18px; background: var(--surface); color: var(--ink); padding: 0; width: min(520px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); }
+dialog::backdrop { background: rgba(10, 8, 16, .7); }
+.form { display: grid; gap: 14px; padding: 22px; }
+.form h3 { font-size: 22px; color: var(--gold-soft); }
+.form .sum { color: var(--muted); font-size: 15px; }
+.form label { display: grid; gap: 4px; font-size: 14px; color: var(--muted); }
+.form input, .form select, .form textarea { font: inherit; font-size: 16px; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; width: 100%; }
+.form input:focus, .form select:focus, .form textarea:focus { outline: 2px solid var(--gold); border-color: var(--gold); }
+.form .two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+.form .check { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; }
+.form .check input { width: auto; margin-top: 3px; }
+.form .actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.form .note { font-size: 14px; color: var(--gold-soft); }
+[hidden] { display: none !important; }
+footer { padding-block: 28px 40px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+
+@media (max-width: 760px) {
+  header.hero { grid-template-columns: minmax(0, 1fr); padding-block: 32px; }
+  .globe { max-width: 190px; grid-row: 1; justify-self: start; }
+  .cards, .bundles, .steps { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .globe g.spin { animation: turn 160s linear infinite; transform-origin: 150px 150px; }
+  @keyframes turn { to { transform: rotate(360deg); } }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="hero-text">
+      <span class="label">Персональная консультация по релокации</span>
+      <h1>Ваше место на карте</h1>
+      <p class="lead">Где вам жить, расти в деле и встретить своего человека.</p>
+      <p class="lead">Когда вы меняете место жизни, планеты вашей карты рождения переходят в другие дома. Это называется релокацией карты, или астрокартографией. Вместе с домами меняется то, какие сферы жизни выходят на первый план, а значит и ваш событийный ряд.</p>
+      <div><a class="btn" href="#price">Выбрать разбор</a></div>
+    </div>
+    <svg class="globe" viewBox="0 0 300 300" role="img" aria-label="Глобус с линиями">
+      <g class="spin" id="globe"></g>
+    </svg>
+  </header>
+
+  <section>
+    <span class="label">Как это работает</span>
+    <h2>Почему в одном городе всё идёт, а в другом стоит</h2>
+    <div class="text">
+      <p>Мы берём дату, время и город рождения и строим вашу личную карту мира: какие места поддерживают дело, какие отношения, а какие забирают силы.</p>
+      <p>На выходе конкретные города с объяснением простым языком. Решение о переезде вы принимаете сами, разбор помогает сделать его осознанно.</p>
+    </div>
+  </section>
+
+  <section id="price">
+    <span class="label">Разборы</span>
+    <h2>Выберите свой разбор</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Моё место на карте</h3>
+        <p class="what">Место для вашей максимальной реализации.</p>
+        <ul>
+          <li>город, где дело растёт сильнее всего</li>
+          <li>что там раскрывается в деле и деньгах</li>
+          <li>места, где рост будет тормозить</li>
+        </ul>
+        <span class="price">2 990 ₽</span>
+        <button class="btn" type="button" data-buy="karta">Оплатить</button>
+      </div>
+      <div class="card">
+        <h3>Переезжать или нет</h3>
+        <p class="what">Вы называете 2–3 города, между которыми выбираете.</p>
+        <ul>
+          <li>что даст каждый город: дело, деньги, отношения, отдых</li>
+          <li>что каждый может забрать</li>
+          <li>какой из них ваш и для какой цели</li>
+        </ul>
+        <span class="price">2 990 ₽</span>
+        <button class="btn" type="button" data-buy="vybor">Оплатить</button>
+      </div>
+      <div class="card">
+        <h3>Где и когда вы встретите своего человека</h3>
+        <p class="what">Отдельно или вместе с любым разбором.</p>
+        <ul>
+          <li>города, где сильнее всего зовёт партнёрство</li>
+          <li>периоды по годам, когда окно для встречи открыто</li>
+        </ul>
+        <span class="price">1 490 ₽</span>
+        <button class="btn" type="button" data-buy="lyubov">Оплатить</button>
+      </div>
+    </div>
+
+    <h3 style="font-size:24px;margin-top:10px">Вместе выгоднее</h3>
+    <div class="bundles">
+      <div class="bundle">
+        <h3>Моё место на карте + Где и когда вы встретите своего человека</h3>
+        <div class="row"><span class="price">3 990 ₽</span><s>4 480 ₽</s></div>
+        <p>Город для реализации и отдельно города и годы для встречи.</p>
+        <button class="btn" type="button" data-buy="karta_lyubov">Оплатить комплект</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <span class="label">Как проходит</span>
+    <h2>Три шага</h2>
+    <ol class="steps">
+      <li>Выбираете разбор и заполняете короткую анкету: дата, время и город рождения, телефон, Telegram или WhatsApp.</li>
+      <li>Оплачиваете разбор, анкета приходит вместе с оплатой.</li>
+      <li>В течение 3 рабочих дней получаете разбор в Telegram или WhatsApp.</li>
+    </ol>
+  </section>
+
+  <section>
+    <span class="label">Обо мне</span>
+    <h2>Евгения Устинова</h2>
+    <div class="facts">
+      <span class="fact"><b>8 лет</b> практики</span>
+      <span class="fact"><b>около 5 000</b> клиентов</span>
+      <span class="fact">модель архетипов и астрология</span>
+    </div>
+    <div class="text">
+      <p>Я восемь лет работаю с людьми, которые хотят разобраться в себе, найти своё дело и выстроить жизнь, которая им подходит. Модель архетипов и астрология помогают быстро увидеть сильные стороны человека и сценарии, которые мешают ему двигаться.</p>
+      <p>Я сама когда-то пересобрала жизнь с нуля и переехала жить к морю. Поэтому знаю, как много значит место, в котором ты живёшь.</p>
+    </div>
+  </section>
+
+  <section id="contacts">
+    <span class="label">Документы и контакты</span>
+    <h2>Контакты</h2>
+    <div class="req">
+      <span><a class="btn" style="margin:4px 0 8px" href="https://t.me/zhenya_ustinova" target="_blank" rel="noopener">Написать мне в Telegram</a></span>
+      <span>Электронная почта: 89122545000@yandex.ru</span>
+      <span>Индивидуальный предприниматель Устинова Евгения Андреевна</span>
+      <span>ИНН 450601673518 · ОГРНИП 323450000009718</span>
+    </div>
+    <div class="legal">
+      <details id="offer">
+        <summary>Публичная оферта</summary>
+        <div class="doc">
+          <p>Индивидуальный предприниматель Устинова Евгения Андреевна (ИНН 450601673518, ОГРНИП 323450000009718), далее Исполнитель, предлагает любому дееспособному лицу, далее Заказчик, заключить договор на оказание информационно-консультационных услуг в сфере коучинга и саморазвития на условиях ниже.</p>
+          <h3>1. Предмет</h3>
+          <p>Исполнитель готовит для Заказчика персональную письменную консультацию по выбору места для жизни с использованием модели архетипов: «Моё место на карте», «Переезжать или нет», «Где и когда вы встретите своего человека» или комплект.</p>
+          <h3>2. Стоимость и оплата</h3>
+          <p>«Моё место на карте» 2 990 рублей, «Переезжать или нет» 2 990 рублей, «Где и когда вы встретите своего человека» 1 490 рублей, комплект «Моё место на карте» и «Где и когда вы встретите своего человека» 3 990 рублей. Оплата производится полностью через платёжный сервис на сайте. Оплата означает полное принятие условий оферты.</p>
+          <h3>3. Порядок оказания услуг</h3>
+          <p>Перед оплатой Заказчик заполняет анкету на сайте: дату, время и место рождения и контакт для связи. Исполнитель направляет письменную консультацию в Telegram или WhatsApp в течение 3 рабочих дней с момента оплаты. Услуга считается оказанной в момент отправки консультации.</p>
+          <h3>4. Ограничения</h3>
+          <p>Консультация носит информационный характер, не является медицинской, психологической или юридической помощью. Решение о переезде Заказчик принимает самостоятельно и несёт за него ответственность. Материалы запрещено копировать и распространять без согласия Исполнителя.</p>
+          <h3>5. Возврат</h3>
+          <p>Если работа над консультацией ещё не начата, Заказчик может отказаться от услуги и получить возврат полной суммы, написав Исполнителю. После начала работы возврат производится по договорённости сторон в соответствии с законодательством РФ.</p>
+          <h3>6. Реквизиты Исполнителя</h3>
+          <p>ИП Устинова Евгения Андреевна, ИНН 450601673518, ОГРНИП 323450000009718, электронная почта 89122545000@yandex.ru.</p>
+        </div>
+      </details>
+      <details id="privacy">
+        <summary>Политика конфиденциальности</summary>
+        <div class="doc">
+          <p>Оператор персональных данных: ИП Устинова Евгения Андреевна, ИНН 450601673518.</p>
+          <h3>Какие данные мы получаем</h3>
+          <p>Имя, контактные данные (телефон, электронная почта, имя пользователя в Telegram), дату, время и место рождения.</p>
+          <h3>Зачем</h3>
+          <p>Чтобы принять оплату, подготовить консультацию и связаться с вами по вопросам заказа.</p>
+          <h3>Как храним</h3>
+          <p>Данные не передаются третьим лицам, кроме платёжного сервиса для проведения оплаты. Данные хранятся до достижения целей обработки или до вашего отзыва согласия.</p>
+          <h3>Ваши права</h3>
+          <p>Вы можете запросить, исправить или удалить свои данные, написав на 89122545000@yandex.ru. Оплачивая консультацию, вы соглашаетесь с обработкой персональных данных по этой политике.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <footer>© 2026 Евгения Устинова · ИП Устинова Евгения Андреевна · ИНН 450601673518</footer>
+</div>
+
+<dialog id="order" aria-labelledby="order-title">
+  <form class="form" id="order-form" method="dialog" novalidate>
+    <h3 id="order-title">Анкета</h3>
+    <p class="sum" id="order-sum"></p>
+    <label>Имя<input name="name" required autocomplete="name"></label>
+    <label>Телефон<input name="phone" type="tel" required autocomplete="tel" value="+7" minlength="12"></label>
+    <div class="two">
+      <label>Дата рождения<input name="date" required placeholder="23.12.1997" inputmode="numeric"></label>
+      <label>Время рождения<input name="time" required placeholder="9:30"></label>
+    </div>
+    <label>Город рождения<input name="city" required></label>
+    <label id="cities-wrap" hidden>Города, между которыми выбираете (2–3)<input name="cities"></label>
+    <div class="two">
+      <label>Куда прислать разбор<select name="messenger"><option>Telegram</option><option>WhatsApp</option></select></label>
+      <label>Ник или номер<input name="contact" required placeholder="@username"></label>
+    </div>
+    <label class="check"><input type="checkbox" name="agree" required>Соглашаюсь с офертой и политикой конфиденциальности</label>
+    <p class="note" id="order-note" role="alert" hidden></p>
+    <div class="actions">
+      <button class="btn" type="submit" value="pay">Перейти к оплате</button>
+      <button class="btn ghost" type="button" id="order-close">Закрыть</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+// Адрес платёжной страницы Продамуса, например https://ustinova.payform.ru/
+var PAYFORM = "https://arhetipy.payform.ru/";
+var AFTER_PAY = "https://t.me/zhenya_ustinova";
+var PRODUCTS = {
+  karta: { name: "Моё место на карте", price: 2990 },
+  vybor: { name: "Переезжать или нет", price: 2990, cities: true },
+  lyubov: { name: "Где и когда вы встретите своего человека", price: 1490 },
+  karta_lyubov: { name: "Моё место на карте + Где и когда вы встретите своего человека", price: 3990 }
+};
+(function () {
+  var dlg = document.getElementById('order'), form = document.getElementById('order-form');
+  var note = document.getElementById('order-note'), cur = null;
+  function rub(n) { return n.toLocaleString('ru-RU') + ' ₽'; }
+  document.querySelectorAll('[data-buy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      cur = b.getAttribute('data-buy');
+      var p = PRODUCTS[cur];
+      document.getElementById('order-sum').textContent = p.name + ', ' + rub(p.price);
+      document.getElementById('cities-wrap').hidden = !p.cities;
+      form.elements.cities.required = !!p.cities;
+      note.hidden = true;
+      if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+    });
+  });
+  document.getElementById('order-close').addEventListener('click', function () { dlg.close(); });
+  form.elements.messenger.addEventListener('change', function () {
+    form.elements.contact.placeholder = this.value === 'WhatsApp' ? '+7 900 000-00-00' : '@username';
+  });
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = form.elements;
+    if (!form.checkValidity()) {
+      note.textContent = f.agree.checked ? 'Заполните, пожалуйста, все поля.' : 'Отметьте согласие с офертой.';
+      note.hidden = false; return;
+    }
+    if (!PAYFORM) { note.textContent = 'Оплата подключается. Напишите, пожалуйста, на 89122545000@yandex.ru.'; note.hidden = false; return; }
+    var p = PRODUCTS[cur];
+    var extra = 'Имя: ' + f.name.value + '; дата: ' + f.date.value + '; время: ' + f.time.value + '; город рождения: ' + f.city.value +
+      (p.cities ? '; города для выбора: ' + f.cities.value : '') + '; ' + f.messenger.value + ': ' + f.contact.value;
+    var q = new URLSearchParams();
+    q.set('do', 'pay');
+    q.set('order_id', 'karta-' + Date.now());
+    q.set('products[0][name]', p.name);
+    q.set('products[0][price]', String(p.price));
+    q.set('products[0][quantity]', '1');
+    q.set('customer_phone', f.phone.value);
+    q.set('customer_extra', extra);
+    q.set('urlSuccess', AFTER_PAY);
+    var url = PAYFORM.replace(/\/?$/, '/') + '?' + q.toString();
+    var w = null;
+    try { w = window.open(url, '_blank', 'noopener'); } catch (err) {}
+    note.textContent = '';
+    var a = document.createElement('a');
+    a.href = url; a.target = '_blank'; a.rel = 'noopener';
+    a.textContent = 'Если страница оплаты не открылась, нажмите сюда';
+    note.appendChild(a);
+    note.hidden = false;
+  });
+  var g = document.getElementById('globe'), ns = 'http://www.w3.org/2000/svg', c = 150, R = 125;
+  function el(tag, attrs) { var e = document.createElementNS(ns, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); g.appendChild(e); return e; }
+  el('circle', { cx: c, cy: c, r: R, fill: 'none', stroke: 'var(--gold)', 'stroke-width': 1.2 });
+  [0.35, 0.7].forEach(function (k) { el('ellipse', { cx: c, cy: c, rx: R * k, ry: R, fill: 'none', stroke: 'var(--line)', 'stroke-width': 1 }); });
+  [-0.6, -0.3, 0, 0.3, 0.6].forEach(function (k) { var y = c + R * k, w = Math.sqrt(1 - k * k) * R; el('line', { x1: c - w, y1: y, x2: c + w, y2: y, stroke: 'var(--line)', 'stroke-width': 1 }); });
+  el('path', { d: 'M60 70 C 120 120, 150 170, 240 230', fill: 'none', stroke: 'var(--gold-soft)', 'stroke-width': 1.6, 'stroke-dasharray': '4 5' });
+  el('path', { d: 'M70 220 C 130 170, 180 120, 230 80', fill: 'none', stroke: 'var(--gold)', 'stroke-width': 1.2 });
+  el('circle', { cx: 168, cy: 140, r: 6, fill: 'var(--gold)' });
+  el('circle', { cx: 168, cy: 140, r: 13, fill: 'none', stroke: 'var(--gold)', 'stroke-width': 1 });
+  var d = location.hash && document.getElementById(location.hash.slice(1));
+  if (d && d.tagName === 'DETAILS') { d.open = true; d.scrollIntoView(); }
+})();
+</script>
+</body>
+</html>
